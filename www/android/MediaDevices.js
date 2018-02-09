@@ -20,49 +20,57 @@
 */
 /* globals window, navigator, cordova, Promise */
 
-var exec = cordova.require('cordova/exec');
+var exec = cordova.require('cordova/exec')
 
 var mediaDevices = {
-    nativeMediaDevices: navigator.mediaDevices
-};
+  nativeMediaDevices: navigator.mediaDevices
+}
 
 mediaDevices.getSupportedConstraints = function () {
-    return this.nativeMediaDevices.getSupportedConstraints();
-};
+  return this.nativeMediaDevices.getSupportedConstraints()
+}
 
 mediaDevices.enumerateDevices = function () {
-    return this.nativeMediaDevices.enumerateDevices();
-};
+  return this.nativeMediaDevices.enumerateDevices()
+}
+
+/// / navigator.webkitGetUserMedia({ audio: true, video: true }, (e) => console.log(e), (e) => console.log(e))
 
 mediaDevices.getUserMedia = function (constraints) {
-    var mediaDevice = this.nativeMediaDevices;
+  var mediaDevice = this.nativeMediaDevices
 
-    var audio = false;
-    var video = false;
+  var audio = false
+  var video = false
 
-    if (typeof constraints.audio === 'object' || constraints.audio === true) {
-        audio = true;
+  if (typeof constraints.audio === 'object' || constraints.audio === true) {
+    audio = true
+  }
+  if (typeof constraints.video === 'object' || constraints.video === true) {
+    video = true
+  }
+
+  return new Promise(function (resolve, reject) {
+    var success = function () {
+      try {
+        mediaDevice
+        .getUserMedia(constraints)
+        .then(function (stream) {
+          resolve(stream)
+        })
+        .catch(function (error) {
+          reject(error)
+        })
+      } catch (ex) {
+        navigator.webkitGetUserMedia({ audio: true, video: true }, (stream) => {
+          resolve(stream)
+        }, (error) => reject(error))
+      }
     }
-    if (typeof constraints.video === 'object' || constraints.video === true) {
-        video = true;
+    var fail = function (error) {
+      reject(error)
     }
+    exec(success, fail, 'MediaStreams', 'getUserMedia', [audio, video])
+  })
+}
 
-    return new Promise(function (resolve, reject) {
-        var success = function () {
-            mediaDevice
-                .getUserMedia(constraints)
-                .then(function (stream) {
-                    resolve(stream);
-                })
-                .catch(function (error) {
-                    reject(error);
-                });
-        };
-        var fail = function (error) {
-            reject(error);
-        };
-        exec(success, fail, 'MediaStreams', 'getUserMedia', [audio, video]);
-    });
-};
-
-module.exports = mediaDevices;
+module.exports = mediaDevices
