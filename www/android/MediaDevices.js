@@ -61,9 +61,7 @@ mediaDevices.getUserMedia = function (constraints) {
           reject(error)
         })
       } catch (ex) {
-        navigator.webkitGetUserMedia(constraints, (stream) => {
-          resolve(stream)
-        }, (error) => reject(error))
+        navigator.webkitGetUserMedia(constraints, resolve, reject)
       }
     }
     var fail = function (error) {
