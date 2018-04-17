@@ -25,7 +25,7 @@
  * @constructor
  */
 
-const uuid = require('uuid/v4');
+const uuid = require('../uuid/v4');
 
 var MediaStream = function (tracks = {}) {
     this.id = tracks.id || uuid();
