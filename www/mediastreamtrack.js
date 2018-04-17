@@ -89,4 +89,8 @@ MediaStreamTrack.prototype.applyConstraints = function (contraints) {
     });
 };
 
+MediaStreamTrack.prototype.addEventListener = function (event, cb) {};
+
+MediaStreamTrack.prototype.removeEventListener = function (event, cb) {};
+
 module.exports = MediaStreamTrack;

@@ -24,8 +24,11 @@
  * This class contains information about the getUserMedia API.
  * @constructor
  */
-var MediaStream = function (tracks) {
-    this.id = tracks.id;
+
+const uuid = require('uuid/v4');
+
+var MediaStream = function (tracks = {}) {
+    this.id = tracks.id || uuid();
     this.active = false;
     this.audioTracks = [];
     this.videoTracks = [];

@@ -1,7 +1,7 @@
 {
-  "name": "phonegap-plugin-media-stream",
+  "name": "@webantic/phonegap-plugin-media-stream",
   "description": "",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "homepage": "https://github.com/phonegap/phonegap-plugin-media-stream#readme",
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "pluginpub": "^0.0.9"
   },
   "dependencies": {
-    "eslint": "^4.4.1"
+    "eslint": "^4.4.1",
+    "uuid": "^3.2.1"
   }
 }
