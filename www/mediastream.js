@@ -25,10 +25,30 @@
  * @constructor
  */
 
-const uuid = require('../uuid/v4');
+var guid = function () {
+    var s4 = function () {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    return (
+        s4() +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        '-' +
+        s4() +
+        s4() +
+        s4()
+    );
+};
 
 var MediaStream = function (tracks = {}) {
-    this.id = tracks.id || uuid();
+    this.id = tracks.id || guid();
     this.active = false;
     this.audioTracks = [];
     this.videoTracks = [];
@@ -126,28 +146,6 @@ MediaStream.prototype.getTrackById = function (id) {
 };
 
 MediaStream.prototype.clone = function () {
-    var guid = function () {
-        var s4 = function () {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        };
-        return (
-            s4() +
-            s4() +
-            '-' +
-            s4() +
-            '-' +
-            s4() +
-            '-' +
-            s4() +
-            '-' +
-            s4() +
-            s4() +
-            s4()
-        );
-    };
-
     var video;
     if (this.videoTracks) {
         video = JSON.parse(JSON.stringify(this.videoTracks));

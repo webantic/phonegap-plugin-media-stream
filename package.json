@@ -52,7 +52,6 @@
     "pluginpub": "^0.0.9"
   },
   "dependencies": {
-    "eslint": "^4.4.1",
-    "uuid": "^3.2.1"
+    "eslint": "^4.4.1"
   }
 }
